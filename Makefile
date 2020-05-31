@@ -1,13 +1,16 @@
+#Paths
+
 PPC = X:/SysGCC/powerpc-eabi
 PRJTDIR = $(shell pwd)
 SRC = $(PRJTDIR)/src
-
+OUT = $(PRJTDIR)/output
 BINUTILPREFIX = powerpc-eabi-
 
+#Files
 PROGRAM = staminaHP
 LSCRIPT = setstart.x
 
-#binutils
+#Bin-Utils
 GCC = $(PPC)/bin/$(BINUTILPREFIX)gcc-4.9.0
 AS = $(PPC)/bin/$(BINUTILPREFIX)as
 LD = $(PPC)/bin/$(BINUTILPREFIX)ld
@@ -23,27 +26,24 @@ CFLAGS = -Os -fno-exceptions -fomit-frame-pointer
 LDFLAGS = -T $(LSCRIPT)
 
 clean:
-	-rm -f $(SRC)/$(PROGRAM).o
-	-rm -f $(SRC)/$(PROGRAM).s
-	-rm -f $(SRC)/$(PROGRAM).bin
-	-rm -f $(SRC)/$(PROGRAM).elf
-	-rm -f $(SRC)/$(PROGRAM).syms
+	-rm -f $(OUT)/$(PROGRAM).o
+	-rm -f $(OUT)/$(PROGRAM).s
+	-rm -f $(OUT)/$(PROGRAM).bin
+	-rm -f $(OUT)/$(PROGRAM).elf
+	-rm -f $(OUT)/$(PROGRAM).syms
 
-disasm: $(SRC)/$(PROGRAM).o
-	$(OBJDUMP) $(DISFLAGS) $(SRC)/$(PROGRAM).o
+disasm: $(OUT)/$(PROGRAM).o
+	$(OBJDUMP) $(DISFLAGS) $(OUT)/$(PROGRAM).o
 
 bin: link
-	$(OBJCOPY) $(SRC)/$(PROGRAM).elf $(SRC)/$(PROGRAM).bin -O binary
+	$(OBJCOPY) $(OUT)/$(PROGRAM).elf $(OUT)/$(PROGRAM).bin -O binary
 
 link: obj
-	$(LD) $(LDFLAGS) -o $(SRC)/$(PROGRAM).elf $(SRC)/$(PROGRAM).o
-	$(NM) $(NMFLAGS)  $(SRC)/$(PROGRAM).elf > $(SRC)/$(PROGRAM).syms
+	$(LD) $(LDFLAGS) -o $(OUT)/$(PROGRAM).elf $(OUT)/$(PROGRAM).o
+	$(NM) $(NMFLAGS)  $(OUT)/$(PROGRAM).elf > $(OUT)/$(PROGRAM).syms
 
 obj: asm
-	$(AS) $(ASFLAGS) $(SRC)/$(PROGRAM).s -o $(SRC)/$(PROGRAM).o 
+	$(AS) $(ASFLAGS) $(OUT)/$(PROGRAM).s -o $(OUT)/$(PROGRAM).o 
 
 asm: $(SRC)/$(PROGRAM).c
-	$(GCC) $(CFLAGS) -S $(SRC)/$(PROGRAM).c -o $(SRC)/$(PROGRAM).s
-	
-pwdd:
-	echo $(SRC)
+	$(GCC) $(CFLAGS) -S $(SRC)/$(PROGRAM).c -o $(OUT)/$(PROGRAM).s
