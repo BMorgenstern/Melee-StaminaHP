@@ -8,12 +8,12 @@ PROGRAM = staminaHP
 LSCRIPT = setstart.x
 
 #binutils
-GCC = $(PPC)/bin/$(BINUTILPREFIX)gcc-4.9.0.exe
-AS = $(PPC)/bin/$(BINUTILPREFIX)as.exe
-LD = $(PPC)/bin/$(BINUTILPREFIX)ld.exe
-OBJCOPY = $(PPC)/bin/$(BINUTILPREFIX)objcopy.exe
-NM = $(PPC)/bin/$(BINUTILPREFIX)nm.exe
-OBJDUMP =  $(PPC)/bin/$(BINUTILPREFIX)objdump.exe
+GCC = $(PPC)/bin/$(BINUTILPREFIX)gcc-4.9.0
+AS = $(PPC)/bin/$(BINUTILPREFIX)as
+LD = $(PPC)/bin/$(BINUTILPREFIX)ld
+OBJCOPY = $(PPC)/bin/$(BINUTILPREFIX)objcopy
+NM = $(PPC)/bin/$(BINUTILPREFIX)nm
+OBJDUMP =  $(PPC)/bin/$(BINUTILPREFIX)objdump
 
 #Flags
 NMFLAGS =  -p -nSC
